@@ -43,7 +43,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
   },
   last4: {
-    flex: 1,
+//     flex: 1,
     justifyContent: "center",
   },
   numberInput: {
