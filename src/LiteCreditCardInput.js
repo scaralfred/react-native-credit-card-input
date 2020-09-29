@@ -102,8 +102,8 @@ export default class LiteCreditCardInput extends Component {
   componentDidMount = () => this._focus(this.props.focused);
 
   componentWillReceiveProps = newProps => {
-    // const isUnionPay = newProps.values.type == "unionpay"
-    // this.setState({isUnionPay})
+    const isUnionPay = newProps.values.type == "unionpay"
+    this.setState({isUnionPay})
     // if ((this.props.focused !== newProps.focused) && isUnionPay) this._focus(newProps.focused);
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
@@ -113,7 +113,7 @@ export default class LiteCreditCardInput extends Component {
 
   _focus = field => {
     if (!field) return;
-    this.refs[field].focus();
+    (!this.state.isUnionPay || field == "cvc") && this.refs[field].focus()
     LayoutAnimation.easeInEaseOut();
   }
 
