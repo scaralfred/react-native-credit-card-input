@@ -41,6 +41,7 @@ const s = StyleSheet.create({
   rightPart: {
     overflow: "hidden",
     flexDirection: "row",
+    justifyContent: "space-between"
   },
   last4: {
 //     flex: 1,
@@ -53,7 +54,8 @@ const s = StyleSheet.create({
     width: 80,
   },
   cvcInput: {
-    width: 80,
+    // width: 80,
+    // paddingRight: 10
   },
   last4Input: {
     width: 60,
@@ -100,7 +102,9 @@ export default class LiteCreditCardInput extends Component {
   componentDidMount = () => this._focus(this.props.focused);
 
   componentWillReceiveProps = newProps => {
-    this.setState({isUnionPay: newProps.values.type == "unionpay"})
+    // const isUnionPay = newProps.values.type == "unionpay"
+    // this.setState({isUnionPay})
+    // if ((this.props.focused !== newProps.focused) && isUnionPay) this._focus(newProps.focused);
     if (this.props.focused !== newProps.focused) this._focus(newProps.focused);
   };
 
@@ -146,9 +150,9 @@ export default class LiteCreditCardInput extends Component {
   render() {
     const { focused, values: { number }, inputStyle, status: { number: numberStatus } } = this.props;
     const showRightPart = focused && focused !== "number";
-    const { isUnionPay } = this.state;
+    // const { isUnionPay } = this.state;
 
-    if (isUnionPay) {
+    // if (isUnionPay) {
 
       return (
         <View style={{paddingHorizontal: 10}}>
@@ -173,45 +177,45 @@ export default class LiteCreditCardInput extends Component {
         </View>
       );
 
-    } else {
+    // } else {
 
-      return (
-        <View style={s.container}>
-          <View style={[
-            s.leftPart,
-            showRightPart ? s.hidden : s.expanded,
-          ]}>
-            <CCInput {...this._inputProps("number")}
-              keyboardType="numeric"
-              containerStyle={s.numberInput} />
-          </View>
-          <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
-            <Image style={s.icon} source={Icons[this._iconToShow()]} />
-          </TouchableOpacity>
-          <View style={[
-            s.rightPart,
-            showRightPart ? s.expanded : s.hidden,
-          ]}>
-            <TouchableOpacity onPress={this._focusNumber}
-              style={s.last4}>
-              <View pointerEvents={"none"}>
-                <CCInput field="last4"
-                  keyboardType="numeric"
-                  value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
-                  inputStyle={[s.input, inputStyle]}
-                  containerStyle={[s.last4Input]} />
-              </View>
-            </TouchableOpacity>
-            <CCInput {...this._inputProps("expiry")}
-              keyboardType="numeric"
-              containerStyle={s.expiryInput} />
-            <CCInput {...this._inputProps("cvc")}
-              keyboardType="numeric"
-              containerStyle={s.cvcInput} />
-          </View>
-        </View>
-      );
-    }
+    //   return (
+    //     <View style={s.container}>
+    //       <View style={[
+    //         s.leftPart,
+    //         showRightPart ? s.hidden : s.expanded,
+    //       ]}>
+    //         <CCInput {...this._inputProps("number")}
+    //           keyboardType="numeric"
+    //           containerStyle={s.numberInput} />
+    //       </View>
+    //       <TouchableOpacity onPress={showRightPart ? this._focusNumber : this._focusExpiry }>
+    //         <Image style={s.icon} source={Icons[this._iconToShow()]} />
+    //       </TouchableOpacity>
+    //       <View style={[
+    //         s.rightPart,
+    //         showRightPart ? s.expanded : s.hidden,
+    //       ]}>
+    //         <TouchableOpacity onPress={this._focusNumber}
+    //           style={s.last4}>
+    //           <View pointerEvents={"none"}>
+    //             <CCInput field="last4"
+    //               keyboardType="numeric"
+    //               value={ numberStatus === "valid" ? number.substr(number.length - 4, 4) : "" }
+    //               inputStyle={[s.input, inputStyle]}
+    //               containerStyle={[s.last4Input]} />
+    //           </View>
+    //         </TouchableOpacity>
+    //         <CCInput {...this._inputProps("expiry")}
+    //           keyboardType="numeric"
+    //           containerStyle={s.expiryInput} />
+    //         <CCInput {...this._inputProps("cvc")}
+    //           keyboardType="numeric"
+    //           containerStyle={s.cvcInput} />
+    //       </View>
+    //     </View>
+    //   );
+    // }
     
   }
 }
